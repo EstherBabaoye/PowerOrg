@@ -19,90 +19,85 @@ function AboutUs() {
   ];
 
   return (
-    <div className="w-full min-h-screen mt-[38px] px-[2.4cm] mb-[1.5cm]">
-      {/* Section 1: Empowering Companies */}
-      <div className="flex items-start justify-between gap-12 h-full">
-        <div className="w-[555px] h-[511px] flex flex-col justify-between">
+    <div className="w-full px-6 md:px-10 lg:px-[2.4cm] py-10">
+      
+      <div className="flex flex-col lg:flex-row items-start justify-between gap-10">
+        <div className="w-full lg:max-w-[555px] flex flex-col justify-between">
           <div>
-            <div className="text-[#48cc22] font-semibold text-sm mt-10 mb-1">About Us</div>
-            <div className="font-light text-black mb-4 h-[94.5px]">
-              <p className="text-3xl text-black font-bold pt-2">
+            <p className="text-[#48cc22] font-semibold text-sm mt-4 mb-1">About Us</p>
+            <div className="mb-4">
+              <p className="text-2xl md:text-3xl text-black font-bold">
                 Empowering Companies with Renewable Energy
               </p>
             </div>
-            <div className="text-black text-sm leading-relaxed mb-4">
+            <p className="text-sm leading-relaxed text-black">
               At <span className="text-[#48cc22]">Power</span><span className="text-[#fc9d1e]">Org</span>, we provide innovative and
-              reliable solar energy solutions tailored for organizations and
-              companies. Our mission is to help businesses transition to clean,
-              cost-effective, and sustainable power through expert installation,
-              smart energy management, and ongoing support.
-            </div>
-            <div className="text-black text-sm leading-relaxed space-y-4">
-              <div className="flex items-center gap-[1cm] mt-8 mb-10">
-                <div className="w-10 h-8 rounded-full border-2 border-[#fc9d1e] flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                    className="w-5 h-5 text-orange-400 font-normal">
-                    <path fillRule="evenodd"
+              reliable solar energy solutions tailored for organizations and companies.
+              Our mission is to help businesses transition to clean, cost-effective,
+              and sustainable power through expert installation, smart energy management,
+              and ongoing support.
+            </p>
+
+            <div className="space-y-6 mt-10">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full border-2 border-[#fc9d1e] flex items-center justify-center">
+                  <svg className="w-5 h-5 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" clipRule="evenodd"
                       d="M10.293 15.707a1 1 0 010-1.414L13.586 11H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"
-                      clipRule="evenodd" />
+                    />
                   </svg>
                 </div>
                 <p>Hands-on training in solar system operation, maintenance, and energy management</p>
               </div>
-              <div className="flex items-center gap-[1cm] mt-10 mb-2">
-                <div className="w-8 h-8 rounded-full border-2 border-[#fc9d1e] flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                    className="w-5 h-5 text-orange-400 font-normal">
-                    <path fillRule="evenodd"
+
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full border-2 border-[#fc9d1e] flex items-center justify-center">
+                  <svg className="w-5 h-5 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" clipRule="evenodd"
                       d="M10.293 15.707a1 1 0 010-1.414L13.586 11H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"
-                      clipRule="evenodd" />
+                    />
                   </svg>
                 </div>
                 <p>Comprehensive insurance coverage for all solar panels installed</p>
               </div>
             </div>
           </div>
-          <button className="w-[270px] mt-[24px] text-xl font-bold text-white bg-[#fc9d1e] hover:bg-black py-4 rounded-lg transition duration-300">
+
+          <button className="w-full sm:w-[270px] mt-8 text-xl font-bold text-white bg-[#fc9d1e] hover:bg-black py-4 rounded-lg transition duration-300">
             Discover Our Solutions
           </button>
         </div>
 
-        <div className="w-[631px] h-[520px]">
+        <div className="w-full lg:w-[631px] h-auto">
           <img src={heroImage} alt="Hero" className="w-full h-full object-cover rounded" />
         </div>
       </div>
 
-      {/* Section 2: Our Solar Journey */}
-      <div className="flex items-start justify-between mt-[90px] gap-[1.8cm]">
-        <div className="w-[13.5cm] h-[10cm]">
+      
+      <div className="flex flex-col-reverse lg:flex-row items-start justify-between mt-20 gap-10">
+        <div className="w-full lg:w-[13.5cm] h-auto">
           <img src={solarJourneyImage} alt="Our Solar Journey" className="w-full h-full object-cover rounded" />
         </div>
 
-        <div className="w-[555px]">
-          <div className="font-light text-black mb-[1cm]">
-            <p className="text-3xl text-black font-bold pt-2">Our Solar Journey</p>
-          </div>
-          <div className="text-black text-sm leading-relaxed mt-4 mb-4">
-            At <span className="text-[#48cc22]">Power</span>
-            <span className="text-[#fc9d1e]">Org</span>, our journey began with a vision to make clean, renewable energy accessible to organizations and communities around the world. What started as a small initiative has grown into a trusted solar energy provider committed to reducing carbon footprints and driving sustainability through innovative solar solutions.
-          </div>
+        <div className="w-full lg:w-[555px]">
+          <p className="text-2xl md:text-3xl font-bold text-black mb-4">Our Solar Journey</p>
+          <p className="text-sm leading-relaxed text-black">
+            At <span className="text-[#48cc22]">Power</span><span className="text-[#fc9d1e]">Org</span>, our journey began with a vision to make clean, renewable energy accessible to organizations and communities around the world. What started as a small initiative has grown into a trusted solar energy provider committed to reducing carbon footprints and driving sustainability through innovative solar solutions.
+          </p>
         </div>
       </div>
 
-      {/* Section 3: Meet Our Team */}
-      <div className="text-center mt-4">
-        <div className="font-light text-black mb-8">
-          <p className="text-3xl text-black font-bold pt-2">Meet Our Team</p>
-        </div>
-
-        <div className="text-black text-sm leading-relaxed mt-4 mb-4">
+      
+      <div className="text-center mt-16">
+        <p className="text-2xl md:text-3xl font-bold text-black">Meet Our Team</p>
+        <p className="text-sm text-black mt-4">
           Our solar project developers are committed to offering leading-edge services and solutions for renewable energy.
-        </div>
+        </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-14 mt-10 place-items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-10 place-items-center">
           {team.map((member, index) => (
-            <div key={index} className="flex flex-col items-center">
-              <div className="w-[354px] h-[402px]  overflow-hidden shadow-md bg-white">
+            <div key={index} className="flex flex-col items-center text-center">
+              <div className="w-[300px] h-[350px] overflow-hidden shadow-md bg-white">
                 <img
                   src={member.image}
                   alt={member.name}
