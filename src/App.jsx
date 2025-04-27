@@ -4,16 +4,20 @@ import Footer from './Components/Footer';
 import Header from './Components/Header';
 import Projects from './Pages/Projects';
 import Home from './Pages/Home';
+import SignIn from './Pages/SignIn';
+import ScrollToTop from './Components/ScrollToTop';
 
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/sign-in" element={<SignIn />} />
       </Routes>
       <Footer />
     </Router>
