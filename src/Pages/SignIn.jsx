@@ -1,6 +1,11 @@
 import React from 'react';
+import { useEffect } from 'react';
 
 export default function SignIn() {
+  useEffect(() => {
+    document.title = 'Sign In – PowerOrg';
+  }, []);
+
   return (
     <div className="relative pt-20 pb-0 bg-white">
       <div className="relative container m-auto px-6 md:px-12 xl:px-40 text-gray-500">

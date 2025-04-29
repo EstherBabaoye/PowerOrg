@@ -1,6 +1,8 @@
 import HeaderImg from '../assets/man-with-white-helmet-near-solar-panel.png';
 import VisionImg from '../assets/Vision image.png';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+
 import frame5 from '../assets/Frame 5.png'
 import frame21 from '../assets/Frame 21.png'
 import frame18 from '../assets/Frame 18.png'
@@ -10,8 +12,11 @@ import consultant from '../assets/consultation image.png'
 import Ellipse from '../assets/Ellipse 7.png'
 
 function Home() {
+  useEffect(() => {
+    document.title = 'Home – PowerOrg';
+  }, []);
   return (
-    <> 
+    <>
       {/* Hero Section - Made responsive */}
       <div
         style={{ backgroundImage: `url(${HeaderImg})` }}
@@ -34,12 +39,15 @@ function Home() {
               reliability and long-term savings.
             </p>
           </div>
-          <button className="w-60 h-14 p-3 bg-amber-500 rounded-lg flex justify-center items-center">
-            <span className="text-white text-2xl font-bold font-['Roboto'] leading-normal">Learn More</span>
-          </button>
+          <Link to="/about-us">
+            <button className="w-60 h-14 p-3 bg-amber-500 rounded-lg flex justify-center items-center">
+              <span className="text-white text-2xl font-bold font-['Roboto'] leading-normal">Learn More</span>
+            </button>
+          </Link>
+
         </div>
       </div>
-      
+
       {/* Vision Section - Made responsive */}
       <div className="w-full max-w-[1343px] px-4 md:px-0 mx-auto h-auto md:h-[633px] relative mt-6">
         <div className="flex flex-col md:flex-row justify-between items-start">
@@ -63,12 +71,12 @@ function Home() {
           </div>
         </div>
       </div>
-      
+
       {/* Energy Solutions Section - Made responsive */}
       <div className="flex justify-center">
         <div className="w-full md:w-[746px] px-4 md:px-0 mt-12 gap-7 mb-16">
-            <div className="text-center text-black pb-4 text-3xl md:text-5xl font-bold font-['Roboto'] leading-[48px]">All Energy Solutions</div>
-            <div className="text-neutral-700 text-center text-lg md:text-2xl font-normal font-['Roboto'] leading-7 md:leading-10 tracking-wide">Variety of products to meet your needs is available.Visit us to learn more about our solar energy solutions </div>
+          <div className="text-center text-black pb-4 text-3xl md:text-5xl font-bold font-['Roboto'] leading-[48px]">All Energy Solutions</div>
+          <div className="text-neutral-700 text-center text-lg md:text-2xl font-normal font-['Roboto'] leading-7 md:leading-10 tracking-wide">Variety of products to meet your needs is available.Visit us to learn more about our solar energy solutions </div>
         </div>
       </div>
 
@@ -85,19 +93,22 @@ function Home() {
             <p className='text-center font-medium'>SOLAR SYSTEM</p>
             <p className='text-center font-bold'>Home Installation</p>
           </div>
-          <div className='items-baseline-last pt-0 md:pt-32'> 
+          <div className='items-baseline-last pt-0 md:pt-32'>
             <img className='w-full md:w-96 h-auto md:h-96' src={frame18} alt="" />
             <p className='text-center font-medium'>SOLAR PROJECT</p>
             <p className='text-center font-bold'>Custom Build Plans</p>
           </div>
         </div>
       </div>
-      
+
       {/* Services Button - Made responsive */}
       <div className='flex justify-center px-4'>
-        <button className="w-full md:w-72 h-14 p-3 bg-amber-500 mx-auto rounded-lg flex justify-center items-center gap-2 overflow-hidden">
-          <div className="justify-center text-white text-2xl font-bold font-['Roboto'] leading-normal">All Services</div>
-        </button>
+        <Link to="/projects">
+          <button className="w-full md:w-72 h-14 p-3 bg-amber-500 mx-auto rounded-lg flex justify-center items-center gap-2 overflow-hidden">
+            <div className="justify-center text-white text-2xl font-bold font-['Roboto'] leading-normal">All Services</div>
+          </button>
+        </Link>
+
       </div>
 
       {/* Solutions Section - Made responsive */}
@@ -116,22 +127,22 @@ function Home() {
               <div className="w-8 h-0.5 mt-6 bg-lime-600 origin-top-left -rotate-90"></div>
               <span className="text-lime-600 text-lg font-medium">SUSTAINABLE SOLUTIONS</span>
             </div>
-            
+
             <h2 className="text-3xl md:text-4xl font-bold leading-tight text-black">Power Your Business with Smart, Flexible Energy Solutions</h2>
-            
+
             <p className="text-neutral-700 text-base md:text-lg leading-relaxed">
               Our energy solutions are built for the future—designed to reduce costs, cut down carbon emissions, and improve daily operations for companies and organizations. From solar panels to wind systems, we provide hybrid setups tailored to your energy needs.
             </p>
-            
+
             {/* Feature points */}
             <div className="mt-6 space-y-6">
               <div className="flex items-center gap-4">
-                <a href='www.google.com' className="w-12 h-12 rounded-full border-2 border-orange-400 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full border-2 border-orange-400 flex items-center justify-center">
                   <img src={arrow} alt="" />
-                </a>
+                </div>
                 <p className="text-neutral-700 text-base md:text-lg">Solar and wind systems optimized for commercial use.</p>
               </div>
-              
+
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full border-2 border-orange-400 flex items-center justify-center">
                   <img src={arrow} alt="" />
@@ -139,12 +150,15 @@ function Home() {
                 <p className="text-neutral-700 text-base md:text-lg">Hybrid solutions that improve energy efficiency and cost savings.</p>
               </div>
             </div>
-            
+
             {/* CTA Button */}
             <div className="">
-              <button className="w-full md:w-auto px-8 md:px-14 py-4 border-2 border-black rounded-lg text-black text-lg md:text-xl font-bold hover:bg-black hover:text-white transition-colors">
-                All Services
-              </button>
+              <Link to="/service">
+                <button className="w-full md:w-auto px-8 md:px-14 py-4 border-2 border-black rounded-lg text-black text-lg md:text-xl font-bold hover:bg-black hover:text-white transition-colors">
+                  All Services
+                </button>
+              </Link>
+
             </div>
           </div>
         </div>
@@ -159,11 +173,14 @@ function Home() {
           <p className="self-stretch pt-8 md:pt-20 justify-start text-white text-3xl md:text-5xl font-bold font-['Roboto'] leading-[48px]">Get A Solar Consultation</p>
           <p className="self-stretch justify-start text-white text-base md:text-xl font-normal font-['Roboto'] leading-loose">Get expert guidance on the best solar energy solutions for your organization. Our team evaluates your energy needs, budget, and site conditions to design a customized solar plan that maximizes efficiency and savings. From system recommendations to installation timelines, we'll walk you through every step — no guesswork, just clarity.</p>
           <div className="w-full md:w-72 h-16 p-3 bg-orange-400 rounded-lg inline-flex justify-center items-center gap-2 overflow-hidden">
-            <button className="text-center justify-start text-white text-xl md:text-2xl font-bold font-['Roboto'] leading-normal">Book a Consultation</button>
+            <Link to="/contact">
+              <button className="text-center justify-start text-white text-xl md:text-2xl font-bold font-['Roboto'] leading-normal">Book a Consultation</button>
+            </Link>
+
           </div>
         </div>
       </div>
-      
+
       {/* Testimonials Section - Made responsive */}
       <section className='flex flex-col md:flex-row justify-around py-12 md:py-20 px-4 md:px-0 bg-[#EFF6ED] items-center gap-10 mt-12 md:mt-20'>
         <div className='w-full md:w-[525px]'>

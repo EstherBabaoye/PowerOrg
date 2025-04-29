@@ -1,5 +1,8 @@
 import heroImage from '../assets/hero.png';
 import solarJourneyImage from '../assets/our solar journey.png';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+
 
 import johnJude from '../assets/John Jude.png';
 import amaraCole from '../assets/Amara Cole.png';
@@ -18,9 +21,13 @@ function AboutUs() {
     { image: kelechiMoore, name: 'Kelechi Moore', role: 'Marketing & Communications Lead' },
   ];
 
+  useEffect(() => {
+    document.title = 'About Us – PowerOrg';
+  }, []);
+
   return (
     <div className="w-full px-6 md:px-10 lg:px-[2.4cm] py-10">
-      
+
       <div className="flex flex-col lg:flex-row items-start justify-between gap-10">
         <div className="w-full lg:max-w-[555px] flex flex-col justify-between">
           <div>
@@ -63,9 +70,11 @@ function AboutUs() {
             </div>
           </div>
 
-          <button className="w-full sm:w-[270px] mt-8 text-xl font-bold text-white bg-[#fc9d1e] hover:bg-black py-4 rounded-lg transition duration-300">
-            Discover Our Solutions
-          </button>
+          <Link to="/projects">
+            <button className="w-full sm:w-[270px] mt-8 text-xl font-bold text-white bg-[#fc9d1e] hover:bg-amber-600 py-4 rounded-lg transition duration-300">
+              Discover Our Solutions
+            </button>
+          </Link>
         </div>
 
         <div className="w-full lg:w-[631px] h-auto">
@@ -73,7 +82,7 @@ function AboutUs() {
         </div>
       </div>
 
-      
+
       <div className="flex flex-col-reverse lg:flex-row items-start justify-between mt-20 gap-10">
         <div className="w-full lg:w-[13.5cm] h-auto">
           <img src={solarJourneyImage} alt="Our Solar Journey" className="w-full h-full object-cover rounded" />
@@ -87,7 +96,7 @@ function AboutUs() {
         </div>
       </div>
 
-      
+
       <div className="text-center mt-16">
         <p className="text-2xl md:text-3xl font-bold text-black">Meet Our Team</p>
         <p className="text-sm text-black mt-4">
