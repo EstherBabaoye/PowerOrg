@@ -6,6 +6,7 @@ import Projects from './Pages/Projects';
 import Home from './Pages/Home';
 import SignIn from './Pages/SignIn';
 import ScrollToTop from './Components/ScrollToTop';
+import ForgotPassword from './Pages/ForgotPassword';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
       <Footer />
     </Router>

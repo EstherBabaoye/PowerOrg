@@ -68,7 +68,7 @@ export default function SignIn() {
                   {/* Forgot Password Link */}
                   <div>
                     <a
-                      href="#"
+                      href="/forgot-password"
                       className="text-sm text-black hover:text-amber-500 transition-colors duration-300"
                     >
                       Forgot password?
