@@ -16,8 +16,8 @@ function Footer() {
       <div className="flex flex-col lg:flex-row justify-between py-10 gap-10 px-6 sm:px-10 lg:px-[2.4cm] w-full">
         
         <div className="lg:w-1/3 flex-shrink-0">
-          <span className="text-[#48cc22] text-4xl font-bold">Power</span>
-          <span className="text-[#fc9d1e] text-4xl font-bold">Org</span>
+          <span className="text-[#48cc22] text-4xl font-semibold">Power</span>
+          <span className="text-[#fc9d1e] text-4xl font-semibold">Org</span>
           <p className="font-semibold mt-3 max-w-md">
             Solar plant services offer end-to-end solutions, including design, installation,
             and maintenance, tailored to meet your energy needs.

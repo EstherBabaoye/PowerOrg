@@ -7,6 +7,7 @@ import Home from './Pages/Home';
 import SignIn from './Pages/SignIn';
 import ScrollToTop from './Components/ScrollToTop';
 import ForgotPassword from './Pages/ForgotPassword';
+import Contact from './Pages/Contact';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
       <Footer />
     </Router>

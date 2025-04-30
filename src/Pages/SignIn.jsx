@@ -12,14 +12,14 @@ export default function SignIn() {
         <div className="m-auto w-full">
           <div className="rounded-xl bg-[#d9d9d9] border border-gray-300 shadow-xl mt-10 mb-4 p-6 sm:p-10 pb-12">
             <div className="space-y-24">
-              {/* Title */}
+              
               <h2 className="text-2xl text-center text-black font-bold">
                 Welcome Back
               </h2>
 
-              {/* Form Inputs */}
+             
               <form className="space-y-6 mx-auto max-w-sm w-full">
-                {/* Email */}
+                
                 <div>
                   <label className="block mb-2 text-sm text-black">Email Address</label>
                   <input
@@ -30,7 +30,7 @@ export default function SignIn() {
                   />
                 </div>
 
-                {/* Password */}
+                
                 <div>
                   <label className="block mb-2 text-sm text-black">Password</label>
                   <input
@@ -41,9 +41,9 @@ export default function SignIn() {
                   />
                 </div>
 
-                {/* Remember Me and Forgot Password */}
+                
                 <div className="flex items-center justify-between">
-                  {/* Custom checkbox */}
+                  
                   <label className="flex items-center cursor-pointer gap-2">
                     <div className="relative">
                       <input
@@ -65,7 +65,7 @@ export default function SignIn() {
                     <span className="text-sm text-black">Remember me</span>
                   </label>
 
-                  {/* Forgot Password Link */}
+                  
                   <div>
                     <a
                       href="/forgot-password"
@@ -76,7 +76,7 @@ export default function SignIn() {
                   </div>
                 </div>
 
-                {/* Sign In Button */}
+                
                 <div>
                   <button
                     type="submit"
@@ -87,16 +87,16 @@ export default function SignIn() {
                 </div>
               </form>
 
-              {/* OR Divider */}
+             
               <div className="relative flex py-5 items-center justify-center">
                 <div className="w-40 border-t border-black"></div>
                 <span className="flex-shrink mx-4 text-black">or</span>
                 <div className="w-40 border-t border-black"></div>
               </div>
 
-              {/* Google and Facebook Sign In Options */}
+              
               <div className="mx-auto max-w-sm w-full grid space-y-4 pb-20">
-                {/* Google Button */}
+                
                 <button className="group w-full h-12 px-4 border border-black rounded-lg transition duration-300 hover:border-amber-600 focus:bg-blue-50 active:bg-blue-100 flex items-center justify-center gap-3">
                   <img
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"
@@ -108,7 +108,7 @@ export default function SignIn() {
                   </span>
                 </button>
 
-                {/* Facebook Button */}
+               
                 <button className="group w-full h-12 px-4 border border-black rounded-lg transition duration-300 hover:border-amber-600 focus:bg-blue-50 active:bg-blue-100 flex items-center justify-center gap-3">
                   <img
                     src="https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg"
