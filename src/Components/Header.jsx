@@ -118,11 +118,13 @@ export default function Header() {
               </span>
             </button>
           </Link>
+            <Link to="/sign-up">     
           <button className="w-32 p-2 bg-amber-500 hover:bg-amber-600 rounded-lg flex justify-center items-center">
             <span className="text-white text-xl font-bold font-['Roboto']">
               Sign Up
             </span>
           </button>
+            </Link>
         </div>
       </div>
     </nav>

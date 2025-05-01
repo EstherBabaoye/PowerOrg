@@ -5,6 +5,7 @@ import Header from './Components/Header';
 import Projects from './Pages/Projects';
 import Home from './Pages/Home';
 import SignIn from './Pages/SignIn';
+import SignUp from './Pages/SignUp';
 import ScrollToTop from './Components/ScrollToTop';
 import ForgotPassword from './Pages/ForgotPassword';
 import Contact from './Pages/Contact';
@@ -20,6 +21,7 @@ function App() {
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
