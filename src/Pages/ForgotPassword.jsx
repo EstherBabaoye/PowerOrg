@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import forgot from "../assets/forgot.jpg";
 
 export default function ForgotPassword() {
   useEffect(() => {
@@ -57,6 +58,21 @@ export default function ForgotPassword() {
           </div>
         </div>
       </div>
+      <div
+  className="relative w-full h-[509px] mx-auto bg-cover bg-center shadow-md"
+  style={{ backgroundImage: `url(${forgot})` }}
+>
+  <div className="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
+
+  <p className="pt-32 px-6 sm:px-12 absolute z-20 text-white text-[40px] font-bold">
+    Join the Power Of Revolution
+    <br />
+    With a Smart and Sustainable
+    <br />
+    Solutions
+  </p>
+</div>
+
     </div>
   );
 }
