@@ -87,18 +87,28 @@ export default function Header() {
                 {activeDropdown === name && (
                   <div ref={dropdownRef} className="md:absolute top-full left-0 mt-1 md:mt-0 w-48 bg-white shadow-lg rounded-md py-2 z-10">
                     {dropdownContent[name].map((item) => {
-                      const itemPath =
-                        name.toLowerCase() === "projects"
-                          ? "/projects"
-                          : name.toLowerCase() === "contact"
-                          ? "/contact"
-                          : `/${name.toLowerCase()}/${item.toLowerCase().replace(/\s+/g, "-")}`;
+                      let itemPath;
+                      if (name.toLowerCase() === "projects") {
+                        itemPath = "/projects";
+                      } else if (name.toLowerCase() === "contact") {
+                        itemPath = "/contact";
+                      } else if (name.toLowerCase() === "products") {
+                        itemPath = "/product"; // All products go to same route
+                      } else {
+                        itemPath = `/${name.toLowerCase()}/${item.toLowerCase().replace(/\s+/g, "-")}`;
+                      }
+                      
                       const isItemActive = location.pathname === itemPath;
                       return (
-                        <Link key={item} to={itemPath} className={`block px-4 py-2 text-sm hover:bg-amber-50 ${isItemActive ? "text-amber-500 font-semibold" : "text-neutral-700"}`} onClick={() => {
-                          setActiveDropdown(null);
-                          setIsMenuOpen(false);
-                        }}>
+                        <Link 
+                          key={item} 
+                          to={itemPath} 
+                          className={`block px-4 py-2 text-sm hover:bg-amber-50 ${isItemActive ? "text-amber-500 font-semibold" : "text-neutral-700"}`} 
+                          onClick={() => {
+                            setActiveDropdown(null);
+                            setIsMenuOpen(false);
+                          }}
+                        >
                           {item}
                         </Link>
                       );
@@ -118,13 +128,13 @@ export default function Header() {
               </span>
             </button>
           </Link>
-            <Link to="/sign-up">     
-          <button className="w-32 p-2 bg-amber-500 hover:bg-amber-600 rounded-lg flex justify-center items-center">
-            <span className="text-white text-xl font-bold font-['Roboto']">
-              Sign Up
-            </span>
-          </button>
-            </Link>
+          <Link to="/sign-up">     
+            <button className="w-32 p-2 bg-amber-500 hover:bg-amber-600 rounded-lg flex justify-center items-center">
+              <span className="text-white text-xl font-bold font-['Roboto']">
+                Sign Up
+              </span>
+            </button>
+          </Link>
         </div>
       </div>
     </nav>

@@ -20,7 +20,7 @@ function Home() {
       {/* Hero Section - Made responsive */}
       <div
         style={{ backgroundImage: `url(${HeaderImg})` }}
-        className="h-[600px] md:h-[800px] relative bg-stone-900/30 bg-cover bg-center"
+        className="h-[600px] mt-24 md:h-[800px] relative bg-stone-900/30 bg-cover bg-center"
       >
         <div className="absolute left-4 md:left-[108px] top-[100px] md:top-[185px] inline-flex flex-col justify-start items-start gap-7">
           <div className="flex flex-col justify-start items-start gap-4">
@@ -181,7 +181,7 @@ function Home() {
         </div>
       </div>
 
-      {/* Testimonials Section - Made responsive */}
+      {/* Testimonials Section */}
       <section className='flex flex-col md:flex-row justify-around py-12 md:py-20 px-4 md:px-0 bg-[#EFF6ED] items-center gap-10 mt-12 md:mt-20'>
         <div className='w-full md:w-[525px]'>
           <h2 className='text-3xl md:text-[48px] font-semibold leading-none pb-2'>What our partners say about us
