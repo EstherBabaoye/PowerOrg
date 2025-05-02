@@ -55,37 +55,92 @@ export default function Header() {
         onClick={toggleMenu}
         aria-label="Toggle menu"
       >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 6h16M4 12h16M4 18h16"
+          />
         </svg>
       </button>
 
-      <div className={`${isMenuOpen ? "block" : "hidden"} md:flex justify-between items-center w-full md:w-auto`}>
+      <div
+        className={`${
+          isMenuOpen ? "block" : "hidden"
+        } md:flex justify-between items-center w-full md:w-auto`}
+      >
         <ul className="flex flex-col md:flex-row justify-start items-center gap-4">
           <li className="flex justify-start items-center gap-1">
-            <Link to="/" className={`text-base font-normal font-['Inter'] leading-10 hover:text-amber-500 ${location.pathname === "/" ? "text-amber-500" : "text-neutral-700"}`} onClick={() => setIsMenuOpen(false)}>
+            <Link
+              to="/"
+              className={`text-base font-normal font-['Inter'] leading-10 hover:text-amber-500 ${
+                location.pathname === "/"
+                  ? "text-amber-500"
+                  : "text-neutral-700"
+              }`}
+              onClick={() => setIsMenuOpen(false)}
+            >
               Home
             </Link>
           </li>
           <li className="flex justify-start items-center gap-1">
-            <Link to="/about-us" className={`text-base font-normal font-['Inter'] leading-10 hover:text-amber-500 ${location.pathname === "/about-us" ? "text-amber-500" : "text-neutral-700"}`} onClick={() => setIsMenuOpen(false)}>
+            <Link
+              to="/about-us"
+              className={`text-base font-normal font-['Inter'] leading-10 hover:text-amber-500 ${
+                location.pathname === "/about-us"
+                  ? "text-amber-500"
+                  : "text-neutral-700"
+              }`}
+              onClick={() => setIsMenuOpen(false)}
+            >
               About Us
             </Link>
           </li>
 
           {["Projects", "Service", "Contact", "Products"].map((name) => {
-            const isActive = location.pathname.startsWith(`/${name.toLowerCase()}`);
+            const isActive = location.pathname.startsWith(
+              `/${name.toLowerCase()}`
+            );
             return (
-              <li key={name} className="relative flex flex-col items-start md:items-center">
-                <button className={`flex items-center gap-1 text-base font-normal font-['Inter'] leading-10 hover:text-amber-500 ${isActive ? "text-amber-500" : "text-neutral-700"}`} onClick={() => toggleDropdown(name)}>
+              <li
+                key={name}
+                className="relative flex flex-col items-start md:items-center"
+              >
+                <button
+                  className={`flex items-center gap-1 text-base font-normal font-['Inter'] leading-10 hover:text-amber-500 ${
+                    isActive ? "text-amber-500" : "text-neutral-700"
+                  }`}
+                  onClick={() => toggleDropdown(name)}
+                >
                   {name}
-                  <svg className={`w-4 h-4 transition-transform ${activeDropdown === name ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <svg
+                    className={`w-4 h-4 transition-transform ${
+                      activeDropdown === name ? "rotate-180" : ""
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
                   </svg>
                 </button>
 
                 {activeDropdown === name && (
-                  <div ref={dropdownRef} className="md:absolute top-full left-0 mt-1 md:mt-0 w-48 bg-white shadow-lg rounded-md py-2 z-10">
+                  <div
+                    ref={dropdownRef}
+                    className="md:absolute top-full left-0 mt-1 md:mt-0 w-48 bg-white shadow-lg rounded-md py-2 z-10"
+                  >
                     {dropdownContent[name].map((item) => {
                       let itemPath;
                       if (name.toLowerCase() === "projects") {
@@ -95,15 +150,21 @@ export default function Header() {
                       } else if (name.toLowerCase() === "products") {
                         itemPath = "/product"; // All products go to same route
                       } else {
-                        itemPath = `/${name.toLowerCase()}/${item.toLowerCase().replace(/\s+/g, "-")}`;
+                        itemPath = `/${name.toLowerCase()}/${item
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`;
                       }
-                      
+
                       const isItemActive = location.pathname === itemPath;
                       return (
-                        <Link 
-                          key={item} 
-                          to={itemPath} 
-                          className={`block px-4 py-2 text-sm hover:bg-amber-50 ${isItemActive ? "text-amber-500 font-semibold" : "text-neutral-700"}`} 
+                        <Link
+                          key={item}
+                          to={itemPath}
+                          className={`block px-4 py-2 text-sm hover:bg-amber-50 ${
+                            isItemActive
+                              ? "text-amber-500 font-semibold"
+                              : "text-neutral-700"
+                          }`}
                           onClick={() => {
                             setActiveDropdown(null);
                             setIsMenuOpen(false);
@@ -121,14 +182,14 @@ export default function Header() {
         </ul>
 
         <div className="flex justify-start items-center gap-4 mt-4 ml-8 md:mt-0">
-          <Link to="/sign-in">
+          <Link to="/sign-in" onClick={() => setIsMenuOpen(false)}>
             <button className="w-32 hover:bg-amber-600 rounded-lg p-3 flex justify-center items-center">
               <span className="text-black text-xl font-bold border-none font-['Roboto']">
                 Sign In
               </span>
             </button>
           </Link>
-          <Link to="/sign-up">     
+          <Link to="/sign-up" onClick={() => setIsMenuOpen(false)}>
             <button className="w-32 p-2 bg-amber-500 hover:bg-amber-600 rounded-lg flex justify-center items-center">
               <span className="text-white text-xl font-bold font-['Roboto']">
                 Sign Up
