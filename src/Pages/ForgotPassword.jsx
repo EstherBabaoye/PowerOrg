@@ -1,11 +1,20 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import forgot from "../assets/forgot.jpg";
 
 export default function ForgotPassword() {
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+
   useEffect(() => {
     document.title = "Forget Password – PowerOrg";
   }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    navigate("/check-email");
+  };
 
   return (
     <div className="relative pt-20 pb-0 bg-white">
@@ -18,18 +27,23 @@ export default function ForgotPassword() {
               </h2>
 
               <p className="text-center text-[16px] text-black leading-tight mt-0">
-                Enter the email you used to create your account so that we can{" "}
+                Enter the email you used to create your account so that we can
                 <br />
                 send you a link for resetting your password.
               </p>
 
-              <form className="space-y-6 mx-auto max-w-sm w-full mt-10">
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-6 mx-auto max-w-sm w-full mt-10"
+              >
                 <div>
                   <label className="block mb-2 text-sm text-black">
                     Email Address
                   </label>
                   <input
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full px-4 py-3 rounded-lg border border-black focus:outline-none focus:ring-2 focus:ring-blue-300"
                     required
                   />
