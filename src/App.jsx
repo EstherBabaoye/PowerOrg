@@ -10,6 +10,7 @@ import ScrollToTop from "./Components/ScrollToTop";
 import ForgotPassword from "./Pages/ForgotPassword";
 import Contact from "./Pages/Contact";
 import Product from "./Pages/Product";
+import Service from "./Pages/Service";
 import CheckEmail from "./Pages/CheckEmail";
 import ResetPassword from "./Pages/ResetPassword";
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/product" element={<Product />} />
         <Route path="/check-email" element={<CheckEmail />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/service" element={<Service />} />
       </Routes>
       <Footer />
     </Router>

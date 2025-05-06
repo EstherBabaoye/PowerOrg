@@ -148,8 +148,11 @@ export default function Header() {
                       } else if (name.toLowerCase() === "contact") {
                         itemPath = "/contact";
                       } else if (name.toLowerCase() === "products") {
-                        itemPath = "/product"; // All products go to same route
-                      } else {
+                        itemPath = "/product"; 
+                      } else if (name.toLowerCase() === "service") {
+                        itemPath = "/service";
+                      }
+                      else {
                         itemPath = `/${name.toLowerCase()}/${item
                           .toLowerCase()
                           .replace(/\s+/g, "-")}`;
