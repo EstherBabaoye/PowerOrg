@@ -63,17 +63,17 @@ function Footer() {
             <h3 className="tracking-wide font-bold text-white">Services</h3>
             <ul className="space-y-4">
               <li>
-                <a className="hover:text-[#48cc22] font-normal" href="#">
+                <a className="hover:text-[#48cc22] font-normal" href="/service">
                   Consultancy
                 </a>
               </li>
               <li>
-                <a className="hover:text-[#48cc22] font-normal" href="#">
+                <a className="hover:text-[#48cc22] font-normal" href="/service">
                   Solar System
                 </a>
               </li>
               <li>
-                <a className="hover:text-[#48cc22] font-normal" href="#">
+                <a className="hover:text-[#48cc22] font-normal" href="/service">
                   Solar Panel
                 </a>
               </li>
