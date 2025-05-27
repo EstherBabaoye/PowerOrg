@@ -45,7 +45,7 @@ export default function CheckEmail() {
                     try {
                       setLoading(true);
                       const res = await axios.post(
-                        "http://localhost:5000/forgotPassword",
+                        "https://powerorg.onrender.com/forgotPassword",
                         {
                           email,
                         }
