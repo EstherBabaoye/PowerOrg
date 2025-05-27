@@ -25,7 +25,7 @@ export default function ResetPassword() {
 
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:5000/resetPassword", {
+      const response = await axios.post("https://powerorg.onrender.com/resetPassword", {
         password,
       });
 

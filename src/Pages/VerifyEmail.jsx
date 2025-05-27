@@ -22,7 +22,7 @@ export default function VerifyEmail() {
 
       try {
         const res = await axios.get(
-          `http://localhost:5050/verify-email?token=${token}`
+          `https://powerorg.onrender.com/verify-email?token=${token}`
         );
         setMessage(res.data.message || "Email verified successfully!");
         setSuccess(true);

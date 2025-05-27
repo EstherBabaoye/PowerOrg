@@ -22,7 +22,7 @@ export default function ForgotPassword() {
     try {
       setLoading(true);
       const response = await axios.post(
-        "http://localhost:5050/forgotPassword",
+        "https://powerorg.onrender.com/forgotPassword",
         {
           email,
         }

@@ -10,7 +10,7 @@ export default function ResendVerification() {
   const handleResend = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5050/resend-verification", { email });
+      const res = await axios.post("https://powerorg.onrender.com/resend-verification", { email });
       setMessage("Verification email sent successfully!");
     } catch (error) {
       setMessage(error.response?.data?.message || "Failed to resend email.");

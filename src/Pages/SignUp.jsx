@@ -31,7 +31,7 @@ export default function SignUp() {
 
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:5050/SignUp", {
+      const response = await axios.post("https://powerorg.onrender.com/SignUp", {
         name,
         email,
         password,
