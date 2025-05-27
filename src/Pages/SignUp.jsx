@@ -11,6 +11,21 @@ export default function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [passwordValidations, setPasswordValidations] = useState({
+    length: false,
+    upper: false,
+    lower: false,
+    number: false,
+  });
+
+  const validatePassword = (value) => {
+    setPasswordValidations({
+      length: value.length >= 8,
+      upper: /[A-Z]/.test(value),
+      lower: /[a-z]/.test(value),
+      number: /[0-9]/.test(value),
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,23 +35,27 @@ export default function SignUp() {
       return setMessage("Passwords do not match.");
     }
 
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*?#&]{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
     if (!passwordRegex.test(password)) {
       return setMessage(
-        "Password must be at least 8 characters and include uppercase, lowercase, number, and special character."
+        "Password must be at least 8 characters and include uppercase, lowercase, and a number."
       );
     }
 
     try {
       setLoading(true);
-      const response = await axios.post("https://powerorg.onrender.com/SignUp", {
-        name,
-        email,
-        password,
-      });
-      setMessage("Account created! Please check your email to verify your account.");
+      const response = await axios.post(
+        "https://powerorg.onrender.com/SignUp",
+        {
+          name,
+          email,
+          password,
+        }
+      );
+      setMessage(
+        "Account created! Please check your email to verify your account."
+      );
       setName("");
       setEmail("");
       setPassword("");
@@ -99,7 +118,10 @@ export default function SignUp() {
                     <input
                       type={showPassword ? "text" : "password"}
                       value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                        validatePassword(e.target.value);
+                      }}
                       className="w-full px-4 py-3 pr-12 rounded-lg border border-black focus:outline-none focus:ring-2 focus:ring-blue-300"
                       required
                     />
@@ -110,49 +132,37 @@ export default function SignUp() {
                       tabIndex={-1}
                     >
                       {showPassword ? (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.03-10-7s4.477-7 10-7c1.17 0 2.288.19 3.313.544m3.387 2.556C20.419 9.163 22 11.292 22 12c0 .708-1.58 2.837-3.3 4.1M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                          />
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M3 3l18 18"
-                          />
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                            d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.03-10-7s4.477-7 10-7c1.17 0 2.288.19 3.313.544m3.387 2.556C20.419 9.163 22 11.292 22 12c0 .708-1.58 2.837-3.3 4.1M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                            d="M3 3l18 18" />
                         </svg>
                       ) : (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                          />
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                          />
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                         </svg>
                       )}
                     </button>
+                  </div>
+
+                  {/* ✅ Password Checklist */}
+                  <div className="mt-2 text-sm text-black space-y-1">
+                    <p className={passwordValidations.length ? "text-green-600" : "text-red-600"}>
+                      • At least 8 characters
+                    </p>
+                    <p className={passwordValidations.upper ? "text-green-600" : "text-red-600"}>
+                      • At least one uppercase letter
+                    </p>
+                    <p className={passwordValidations.lower ? "text-green-600" : "text-red-600"}>
+                      • At least one lowercase letter
+                    </p>
+                    <p className={passwordValidations.number ? "text-green-600" : "text-red-600"}>
+                      • At least one number
+                    </p>
                   </div>
                 </div>
 
@@ -170,53 +180,23 @@ export default function SignUp() {
                     />
                     <button
                       type="button"
-                      onClick={() =>
-                        setShowConfirmPassword(!showConfirmPassword)
-                      }
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                       className="absolute inset-y-0 right-3 flex items-center text-black"
                       tabIndex={-1}
                     >
                       {showConfirmPassword ? (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.03-10-7s4.477-7 10-7c1.17 0 2.288.19 3.313.544m3.387 2.556C20.419 9.163 22 11.292 22 12c0 .708-1.58 2.837-3.3 4.1M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                          />
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M3 3l18 18"
-                          />
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                            d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.03-10-7s4.477-7 10-7c1.17 0 2.288.19 3.313.544m3.387 2.556C20.419 9.163 22 11.292 22 12c0 .708-1.58 2.837-3.3 4.1M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                            d="M3 3l18 18" />
                         </svg>
                       ) : (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                          />
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                          />
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                         </svg>
                       )}
                     </button>
