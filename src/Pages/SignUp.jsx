@@ -1,9 +1,54 @@
 import React, { useState } from "react";
+import axios from "axios";
 import Frame104 from "../assets/Frame 104.png";
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setMessage("");
+
+    if (password !== confirmPassword) {
+      return setMessage("Passwords do not match.");
+    }
+
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*?#&]{8,}$/;
+
+    if (!passwordRegex.test(password)) {
+      return setMessage(
+        "Password must be at least 8 characters and include uppercase, lowercase, number, and special character."
+      );
+    }
+
+    try {
+      setLoading(true);
+      const response = await axios.post("http://localhost:5050/SignUp", {
+        name,
+        email,
+        password,
+      });
+      setMessage("Account created! Please check your email to verify your account.");
+      setName("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+      console.log(response.data);
+    } catch (err) {
+      setMessage(err.response?.data?.message || "Signup failed");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <main className="relative pt-20 pb-0 bg-white">
@@ -16,13 +61,18 @@ export default function SignUp() {
                 <br /> To Get <span className="text-[#41CA1A]">Started</span>
               </h2>
 
-              <form className="space-y-6 mx-auto max-w-sm w-full">
+              <form
+                className="space-y-6 mx-auto max-w-sm w-full"
+                onSubmit={handleSubmit}
+              >
                 <div>
                   <label className="block mb-2 text-sm text-black">
                     Full Name
                   </label>
                   <input
                     type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     className="w-full px-4 py-3 rounded-lg border border-black focus:outline-none focus:ring-2 focus:ring-blue-300"
                     required
                   />
@@ -34,6 +84,8 @@ export default function SignUp() {
                   </label>
                   <input
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full px-4 py-3 rounded-lg border border-black focus:outline-none focus:ring-2 focus:ring-blue-300"
                     required
                   />
@@ -46,6 +98,8 @@ export default function SignUp() {
                   <div className="relative">
                     <input
                       type={showPassword ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       className="w-full px-4 py-3 pr-12 rounded-lg border border-black focus:outline-none focus:ring-2 focus:ring-blue-300"
                       required
                     />
@@ -109,6 +163,8 @@ export default function SignUp() {
                   <div className="relative">
                     <input
                       type={showConfirmPassword ? "text" : "password"}
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
                       className="w-full px-4 py-3 pr-12 rounded-lg border border-black focus:outline-none focus:ring-2 focus:ring-blue-300"
                       required
                     />
@@ -175,6 +231,11 @@ export default function SignUp() {
                     Sign Up
                   </button>
                 </div>
+                {message && (
+                  <p className="text-center text-sm text-red-600 mt-2">
+                    {message}
+                  </p>
+                )}
               </form>
 
               <div className="relative flex py-5 items-center justify-center">

@@ -1,8 +1,13 @@
 import React, { useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import forgot from "../assets/forgot.jpg";
 
 export default function CheckEmail() {
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const email = localStorage.getItem("resetEmail"); // assuming you saved it earlier
+
   useEffect(() => {
     document.title = "Forget Password – PowerOrg";
   }, []);
@@ -26,14 +31,49 @@ export default function CheckEmail() {
                   Didn’t receive an email? Check your spam folder or
                 </p>
 
-                <form className="mt-0 pt-0">
+                <form
+                  className="mt-0 pt-0"
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    setMessage("");
+
+                    if (!email)
+                      return setMessage(
+                        "No email found. Go back and try again."
+                      );
+
+                    try {
+                      setLoading(true);
+                      const res = await axios.post(
+                        "http://localhost:5000/forgotPassword",
+                        {
+                          email,
+                        }
+                      );
+                      setMessage("Reset email resent!");
+                    } catch (err) {
+                      setMessage(
+                        err.response?.data?.message || "Failed to resend email."
+                      );
+                    } finally {
+                      setLoading(false);
+                    }
+                  }}
+                >
                   <button
                     type="submit"
+                    disabled={loading}
                     className="w-full bg-amber-500 mt-6 hover:bg-amber-600 text-white font-bold py-3 rounded-lg transition duration-300"
                   >
-                    Resend Email
+                    {loading ? "Sending..." : "Resend Email"}
                   </button>
                 </form>
+
+                {message && (
+                  <p className="text-center text-sm mt-2 text-red-600">
+                    {message}
+                  </p>
+                )}
 
                 <Link
                   to="/sign-in"

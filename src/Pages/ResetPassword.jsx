@@ -1,14 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import forgot from "../assets/forgot.jpg";
 
 export default function ResetPassword() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     document.title = "Forget Password – PowerOrg";
   }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setMessage("");
+
+    if (password !== confirmPassword) {
+      return setMessage("Passwords do not match.");
+    }
+
+    try {
+      setLoading(true);
+      const response = await axios.post("http://localhost:5000/resetPassword", {
+        password,
+      });
+
+      setMessage("Password reset successful!");
+      console.log(response.data);
+    } catch (err) {
+      setMessage(err.response?.data?.message || "Reset failed");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="relative pt-20 pb-0 bg-white">
@@ -24,7 +53,10 @@ export default function ResetPassword() {
                 Choose a new password to your account
               </p>
 
-              <form className="space-y-6 mx-auto max-w-sm w-full">
+              <form
+                className="space-y-6 mx-auto max-w-sm w-full"
+                onSubmit={handleSubmit}
+              >
                 <div>
                   <label className="block mb-2 text-sm text-black">
                     New Password
@@ -32,6 +64,8 @@ export default function ResetPassword() {
                   <div className="relative">
                     <input
                       type={showPassword ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       className="w-full px-4 py-3 pr-12 rounded-lg border border-black focus:outline-none focus:ring-2 focus:ring-blue-300"
                       required
                     />
@@ -53,6 +87,8 @@ export default function ResetPassword() {
                   <div className="relative">
                     <input
                       type={showConfirmPassword ? "text" : "password"}
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
                       className="w-full px-4 py-3 pr-12 rounded-lg border border-black focus:outline-none focus:ring-2 focus:ring-blue-300"
                       required
                     />
@@ -75,6 +111,18 @@ export default function ResetPassword() {
                 >
                   Reset Password
                 </button>
+
+                {message && (
+                  <p
+                    className={`text-center text-sm mt-2 ${
+                      message.includes("successful")
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {message}
+                  </p>
+                )}
 
                 <Link
                   to="/sign-in"

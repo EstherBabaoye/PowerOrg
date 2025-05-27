@@ -1,19 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 import forgot from "../assets/forgot.jpg";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     document.title = "Forget Password – PowerOrg";
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email.trim()) return;
-    navigate("/check-email");
+    setMessage("");
+
+    if (!email.trim()) return setMessage("Email is required.");
+
+    try {
+      setLoading(true);
+      const response = await axios.post(
+        "http://localhost:5050/forgotPassword",
+        {
+          email,
+        }
+      );
+      setMessage("Password reset email sent!");
+      console.log(response.data);
+
+      localStorage.setItem("resetEmail", email);
+
+      setTimeout(() => {
+        navigate("/check-email");
+      }, 1500);
+    } catch (err) {
+      setMessage(err.response?.data?.message || "Failed to send reset email.");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -57,11 +84,28 @@ export default function ForgotPassword() {
                     Send
                   </button>
 
+                  {message && (
+                    <p className="text-center text-sm text-red-600 mt-2">
+                      {message}
+                    </p>
+                  )}
+
                   <Link
                     to="/sign-in"
                     className="w-full text-center bg-white border border-black text-black hover:border-amber-600 font-bold py-3 rounded-lg transition duration-300"
                   >
                     Back to Login
+                  </Link>
+                </div>
+                <div className="mt-4 text-center">
+                  <p className="text-sm text-black">Didn't get the email?</p>
+                  <Link
+                    to={`/resend-verification?email=${
+                      searchParams.get("email") || ""
+                    }`}
+                    className="text-blue-600 hover:underline text-sm"
+                  >
+                    Resend Verification Email
                   </Link>
                 </div>
               </form>

@@ -1,8 +1,39 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import signin from "../assets/forgot.jpg";
 
 export default function SignIn() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setMessage("");
+
+    try {
+      setLoading(true);
+      const response = await axios.post("http://localhost:5050/SignIn", {
+        email,
+        password,
+      });
+
+      if (response.data.message === "Sign in successful") {
+        alert(`Welcome ${response.data.name}`);
+        navigate("/"); 
+        localStorage.setItem("token", response.data.token);
+      }
+    } catch (err) {
+      setMessage(err.response?.data?.message || "Login failed");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     document.title = "Sign In – PowerOrg";
@@ -18,13 +49,18 @@ export default function SignIn() {
                 Welcome Back
               </h2>
 
-              <form className="space-y-6 mx-auto max-w-sm w-full">
+              <form
+                className="space-y-6 mx-auto max-w-sm w-full"
+                onSubmit={handleSubmit}
+              >
                 <div>
                   <label className="block mb-2 text-sm text-black">
                     Email Address
                   </label>
                   <input
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full px-4 py-3 rounded-lg border border-black focus:outline-none focus:ring-2 focus:ring-blue-300"
                     required
                   />
@@ -37,6 +73,8 @@ export default function SignIn() {
                   <div className="relative">
                     <input
                       type={showPassword ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       className="w-full px-4 py-3 rounded-lg border border-black focus:outline-none focus:ring-2 focus:ring-blue-300 pr-12"
                       required
                     />
@@ -129,6 +167,12 @@ export default function SignIn() {
                 >
                   Sign In
                 </button>
+
+                {message && (
+                  <p className="text-center text-sm text-red-600 mt-2">
+                    {message}
+                  </p>
+                )}
               </form>
 
               <div className="relative flex py-5 items-center justify-center">

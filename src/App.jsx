@@ -13,6 +13,8 @@ import Product from "./Pages/Product";
 import Service from "./Pages/Service";
 import CheckEmail from "./Pages/CheckEmail";
 import ResetPassword from "./Pages/ResetPassword";
+import VerifyEmail from "./Pages/VerifyEmail";
+import ResendVerification from "./Pages/ResendVerification";
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
         <Route path="/check-email" element={<CheckEmail />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/service" element={<Service />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path="/resend-verification" element={<ResendVerification />} />
       </Routes>
       <Footer />
     </Router>
