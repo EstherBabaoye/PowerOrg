@@ -15,6 +15,7 @@ import CheckEmail from "./Pages/CheckEmail";
 import ResetPassword from "./Pages/ResetPassword";
 import VerifyEmail from "./Pages/VerifyEmail";
 import ResendVerification from "./Pages/ResendVerification";
+import ErrorBoundary from "./Components/ErrorBoundary"; 
 
 function App() {
   return (
@@ -22,19 +23,110 @@ function App() {
       <ScrollToTop />
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/product" element={<Product />} />
-        <Route path="/check-email" element={<CheckEmail />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/service" element={<Service />} />
-        <Route path="/verify-email" element={<VerifyEmail />} />
-        <Route path="/resend-verification" element={<ResendVerification />} />
+        <Route
+          path="/"
+          element={
+            <ErrorBoundary>
+              <Home />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/about-us"
+          element={
+            <ErrorBoundary>
+              <AboutUs />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/projects"
+          element={
+            <ErrorBoundary>
+              <Projects />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/sign-in"
+          element={
+            <ErrorBoundary>
+              <SignIn />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/sign-up"
+          element={
+            <ErrorBoundary>
+              <SignUp />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/forgot-password"
+          element={
+            <ErrorBoundary>
+              <ForgotPassword />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <ErrorBoundary>
+              <Contact />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/product"
+          element={
+            <ErrorBoundary>
+              <Product />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/check-email"
+          element={
+            <ErrorBoundary>
+              <CheckEmail />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/reset-password"
+          element={
+            <ErrorBoundary>
+              <ResetPassword />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/service"
+          element={
+            <ErrorBoundary>
+              <Service />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/verify-email"
+          element={
+            <ErrorBoundary>
+              <VerifyEmail />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/resend-verification"
+          element={
+            <ErrorBoundary>
+              <ResendVerification />
+            </ErrorBoundary>
+          }
+        />
       </Routes>
       <Footer />
     </Router>

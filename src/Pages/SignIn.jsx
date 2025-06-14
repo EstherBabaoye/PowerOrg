@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import signin from "../assets/forgot.jpg";
+import { API_BASE } from "../config";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -17,10 +18,7 @@ export default function SignIn() {
 
     try {
       setLoading(true);
-      const response = await axios.post("https://powerorg.onrender.com/SignIn", {
-        email,
-        password,
-      });
+      const response = await axios.post(`${API_BASE}/SignIn`, credentials);
 
       if (response.data.message === "Sign in successful") {
         alert(`Welcome ${response.data.name}`);

@@ -1,39 +1,47 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import forgot from "../assets/forgot.jpg";
+import { API_BASE } from "../config";
 
 export default function ResetPassword() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const token = new URLSearchParams(location.search).get("token");
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    document.title = "Forget Password – PowerOrg";
+    document.title = "Reset Password – PowerOrg";
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
 
-    if (password !== confirmPassword) {
+    if (!token) return setMessage("Missing or invalid reset token.");
+    if (password !== confirmPassword)
       return setMessage("Passwords do not match.");
-    }
 
     try {
       setLoading(true);
-      const response = await axios.post("https://powerorg.onrender.com/resetPassword", {
-        password,
-      });
+      const response = await axios.post(`${API_BASE}/reset-password`, { token, password });
 
-      setMessage("Password reset successful!");
-      console.log(response.data);
+      setMessage(response.data.message || "Password reset successful!");
+      setSuccess(true);
+
+      // Redirect after 5 seconds
+      setTimeout(() => {
+        navigate("/sign-in");
+      }, 5000);
     } catch (err) {
-      setMessage(err.response?.data?.message || "Reset failed");
-      console.error(err);
+      setMessage(err.response?.data?.message || "Reset failed.");
     } finally {
       setLoading(false);
     }
@@ -48,9 +56,8 @@ export default function ResetPassword() {
               <h2 className="text-[40px] text-center text-black font-bold leading-none mb-6">
                 Reset Password
               </h2>
-
               <p className="text-center text-[16px] text-black leading-tight mt-0 mb-12">
-                Choose a new password to your account
+                Choose a new password for your account
               </p>
 
               <form
@@ -107,17 +114,42 @@ export default function ResetPassword() {
 
                 <button
                   type="submit"
-                  className="w-full bg-amber-500 mt-6 hover:bg-amber-600 text-white font-bold py-3 rounded-lg transition duration-300"
+                  className="w-full bg-amber-500 mt-6 hover:bg-amber-600 text-white font-bold py-3 rounded-lg transition duration-300 flex justify-center items-center"
+                  disabled={loading}
                 >
-                  Reset Password
+                  {loading ? (
+                    <>
+                      <svg
+                        className="animate-spin h-5 w-5 mr-2 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                        ></path>
+                      </svg>
+                      Resetting...
+                    </>
+                  ) : (
+                    "Reset Password"
+                  )}
                 </button>
 
                 {message && (
                   <p
                     className={`text-center text-sm mt-2 ${
-                      message.includes("successful")
-                        ? "text-green-600"
-                        : "text-red-600"
+                      success ? "text-green-600" : "text-red-600"
                     }`}
                   >
                     {message}
@@ -193,12 +225,7 @@ function EyeOffIcon() {
         strokeWidth={2}
         d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.03-10-7s4.477-7 10-7c1.17 0 2.288.19 3.313.544m3.387 2.556C20.419 9.163 22 11.292 22 12c0 .708-1.58 2.837-3.3 4.1M15 12a3 3 0 11-6 0 3 3 0 016 0z"
       />
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M3 3l18 18"
-      />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3l18 18" />
     </svg>
   );
 }

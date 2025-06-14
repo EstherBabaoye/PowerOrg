@@ -1,5 +1,13 @@
 import footerBackground from "../assets/Footer.jpg";
-import "@fortawesome/fontawesome-free/css/all.min.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  // faPaperPlane,
+  faFacebookF,
+  faInstagram,
+  faTwitter,
+  faLinkedinIn,
+} from "@fortawesome/free-brands-svg-icons"; // or free-solid-svg-icons where needed
+
 
 function Footer() {
   return (
@@ -102,7 +110,7 @@ function Footer() {
                   type="submit"
                   className="w-[48px] h-[50px] bg-[#48cc22] hover:bg-[#3aaa1b] flex items-center justify-center transition-all"
                 >
-                  <i className="fas fa-paper-plane text-white text-lg"></i>
+                 {/* <FontAwesomeIcon icon={faPaperPlane} className="text-white text-lg" /> */}
                 </button>
               </div>
             </form>
@@ -113,28 +121,28 @@ function Footer() {
                 title="Facebook"
                 className="w-6 h-6 flex items-center justify-center rounded-full bg-[#1877F2] text-white hover:scale-110 transition"
               >
-                <i className="fab fa-facebook-f text-xs"></i>
+                <FontAwesomeIcon icon={faFacebookF} className="text-white text-xs" />
               </a>
               <a
                 href="#"
                 title="LinkedIn"
                 className="w-6 h-6 flex items-center justify-center rounded-full bg-[#0A66C2] text-white hover:scale-110 transition"
               >
-                <i className="fab fa-linkedin-in text-xs"></i>
+                <FontAwesomeIcon icon={faLinkedinIn} className="text-xs" />
               </a>
               <a
                 href="#"
                 title="Instagram"
                 className="w-6 h-6 flex items-center justify-center rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white hover:scale-110 transition"
               >
-                <i className="fab fa-instagram text-xs"></i>
+                <FontAwesomeIcon icon={faInstagram} className="text-xs" />
               </a>
               <a
                 href="#"
                 title="Twitter"
                 className="w-6 h-6 flex items-center justify-center rounded-full bg-[#1DA1F2] text-white hover:scale-110 transition"
               >
-                <i className="fab fa-twitter text-xs"></i>
+               <FontAwesomeIcon icon={faTwitter} className="text-xs" />
               </a>
             </div>
           </div>

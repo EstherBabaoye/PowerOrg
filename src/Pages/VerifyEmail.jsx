@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useSearchParams } from "react-router-dom";
 import forgot from "../assets/forgot.jpg";
+import { API_BASE } from "../config";
 
 export default function VerifyEmail() {
   const [searchParams] = useSearchParams();
@@ -21,9 +22,7 @@ export default function VerifyEmail() {
       }
 
       try {
-        const res = await axios.get(
-          `https://powerorg.onrender.com/verify-email?token=${token}`
-        );
+        const res = await axios.get(`${API_BASE}/verify-email?token=${token}`);
         setMessage(res.data.message || "Email verified successfully!");
         setSuccess(true);
       } catch (error) {

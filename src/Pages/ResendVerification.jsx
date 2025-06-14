@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
+import { API_BASE } from "../config";
 
 export default function ResendVerification() {
   const [searchParams] = useSearchParams();
@@ -10,8 +11,7 @@ export default function ResendVerification() {
   const handleResend = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://powerorg.onrender.com/resend-verification", { email });
-      setMessage("Verification email sent successfully!");
+      const res = await axios.post(`${API_BASE}/resend-verification`, { email });
     } catch (error) {
       setMessage(error.response?.data?.message || "Failed to resend email.");
     }

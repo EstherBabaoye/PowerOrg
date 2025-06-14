@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import forgot from "../assets/forgot.jpg";
+import { API_BASE } from "../config";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const searchParams = new URLSearchParams(window.location.search);
+
 
   useEffect(() => {
     document.title = "Forget Password – PowerOrg";
@@ -21,12 +24,7 @@ export default function ForgotPassword() {
 
     try {
       setLoading(true);
-      const response = await axios.post(
-        "https://powerorg.onrender.com/forgotPassword",
-        {
-          email,
-        }
-      );
+      const response = await axios.post(`${API_BASE}/forgotPassword`, { email });
       setMessage("Password reset email sent!");
       console.log(response.data);
 

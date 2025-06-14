@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Frame104 from "../assets/Frame 104.png";
+import { API_BASE } from "../config";
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -45,14 +46,7 @@ export default function SignUp() {
 
     try {
       setLoading(true);
-      const response = await axios.post(
-        "https://powerorg.onrender.com/SignUp",
-        {
-          name,
-          email,
-          password,
-        }
-      );
+      const response = await axios.post(`${API_BASE}/SignUp`, userData);
       setMessage(
         "Account created! Please check your email to verify your account."
       );
