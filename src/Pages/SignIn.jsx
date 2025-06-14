@@ -18,11 +18,14 @@ export default function SignIn() {
 
     try {
       setLoading(true);
-      const response = await axios.post(`${API_BASE}/SignIn`, credentials);
+      const response = await axios.post(`${API_BASE}/SignIn`, {
+        email,
+        password,
+      });
 
       if (response.data.message === "Sign in successful") {
         alert(`Welcome ${response.data.name}`);
-        navigate("/"); 
+        navigate("/");
         localStorage.setItem("token", response.data.token);
       }
     } catch (err) {
