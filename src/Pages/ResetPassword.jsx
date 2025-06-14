@@ -17,29 +17,46 @@ export default function ResetPassword() {
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
 
-  useEffect(() => {
-    document.title = "Reset Password – PowerOrg";
-  }, []);
+  // Password requirements check
+  const passwordChecks = {
+    length: password.length >= 8,
+    upper: /[A-Z]/.test(password),
+    lower: /[a-z]/.test(password),
+    number: /\d/.test(password),
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
 
     if (!token) return setMessage("Missing or invalid reset token.");
-    if (password !== confirmPassword)
-      return setMessage("Passwords do not match.");
+    if (password !== confirmPassword) return setMessage("Passwords do not match.");
+
+    const isStrong =
+      passwordChecks.length &&
+      passwordChecks.upper &&
+      passwordChecks.lower &&
+      passwordChecks.number;
+
+    if (!isStrong) {
+      return setMessage("Password does not meet the required criteria.");
+    }
 
     try {
       setLoading(true);
-      const response = await axios.post(`${API_BASE}/reset-password`, { token, password });
+      const response = await axios.post(`${API_BASE}/reset-password`, {
+        token,
+        password,
+      });
 
-      setMessage(response.data.message || "Password reset successful!");
+      setPassword("");
+      setConfirmPassword("");
+      setMessage("Password reset successful!");
       setSuccess(true);
 
-      // Redirect after 5 seconds
       setTimeout(() => {
-        navigate("/sign-in");
-      }, 5000);
+        navigate("/sign-in", { state: { resetSuccess: true } });
+      }, 2000);
     } catch (err) {
       setMessage(err.response?.data?.message || "Reset failed.");
     } finally {
@@ -47,16 +64,22 @@ export default function ResetPassword() {
     }
   };
 
+  const CheckItem = ({ valid, text }) => (
+    <li className={`text-sm ${valid ? "text-green-600" : "text-red-600"}`}>
+      {valid ? "✔️" : "❌"} {text}
+    </li>
+  );
+
   return (
     <div className="relative pt-20 pb-0 bg-white">
       <div className="relative container m-auto px-6 md:px-12 xl:px-40 text-gray-500">
         <div className="m-auto w-full">
           <div className="rounded-xl bg-[#d9d9d9] border border-gray-300 shadow-xl mt-10 mb-4 p-6 sm:p-10 pb-12 font-roboto">
             <div className="mb-20">
-              <h2 className="text-[40px] text-center text-black font-bold leading-none mb-6">
+              <h2 className="text-[40px] text-center text-black font-bold mb-6">
                 Reset Password
               </h2>
-              <p className="text-center text-[16px] text-black leading-tight mt-0 mb-12">
+              <p className="text-center text-[16px] text-black mb-12">
                 Choose a new password for your account
               </p>
 
@@ -64,10 +87,9 @@ export default function ResetPassword() {
                 className="space-y-6 mx-auto max-w-sm w-full"
                 onSubmit={handleSubmit}
               >
+                {/* New Password */}
                 <div>
-                  <label className="block mb-2 text-sm text-black">
-                    New Password
-                  </label>
+                  <label className="block mb-2 text-sm text-black">New Password</label>
                   <div className="relative">
                     <input
                       type={showPassword ? "text" : "password"}
@@ -85,12 +107,19 @@ export default function ResetPassword() {
                       {showPassword ? <EyeOffIcon /> : <EyeIcon />}
                     </button>
                   </div>
+
+                  {/* Live Checklist */}
+                  <ul className="mt-2 space-y-1">
+                    <CheckItem valid={passwordChecks.length} text="At least 8 characters" />
+                    <CheckItem valid={passwordChecks.upper} text="At least one uppercase letter" />
+                    <CheckItem valid={passwordChecks.lower} text="At least one lowercase letter" />
+                    <CheckItem valid={passwordChecks.number} text="At least one number" />
+                  </ul>
                 </div>
 
+                {/* Confirm Password */}
                 <div>
-                  <label className="block mb-2 text-sm text-black">
-                    Confirm Password
-                  </label>
+                  <label className="block mb-2 text-sm text-black">Confirm Password</label>
                   <div className="relative">
                     <input
                       type={showConfirmPassword ? "text" : "password"}
@@ -101,9 +130,7 @@ export default function ResetPassword() {
                     />
                     <button
                       type="button"
-                      onClick={() =>
-                        setShowConfirmPassword(!showConfirmPassword)
-                      }
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                       className="absolute inset-y-0 right-3 flex items-center text-black"
                       tabIndex={-1}
                     >
@@ -112,6 +139,7 @@ export default function ResetPassword() {
                   </div>
                 </div>
 
+                {/* Submit Button */}
                 <button
                   type="submit"
                   className="w-full bg-amber-500 mt-6 hover:bg-amber-600 text-white font-bold py-3 rounded-lg transition duration-300 flex justify-center items-center"
@@ -146,6 +174,7 @@ export default function ResetPassword() {
                   )}
                 </button>
 
+                {/* Message */}
                 {message && (
                   <p
                     className={`text-center text-sm mt-2 ${
@@ -187,45 +216,17 @@ export default function ResetPassword() {
 
 function EyeIcon() {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-5 w-5"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-      />
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M2.458 12C3.732 7.943 7.523 5 12 5s8.268 2.943 9.542 7c-1.274 4.057-5.065 7-9.542 7s-8.268-2.943-9.542-7z"
-      />
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5s8.268 2.943 9.542 7c-1.274 4.057-5.065 7-9.542 7S3.732 16.057 2.458 12z" />
     </svg>
   );
 }
 
 function EyeOffIcon() {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-5 w-5"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.03-10-7s4.477-7 10-7c1.17 0 2.288.19 3.313.544m3.387 2.556C20.419 9.163 22 11.292 22 12c0 .708-1.58 2.837-3.3 4.1M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-      />
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3l18 18" />
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.03-10-7s4.477-7 10-7c1.17 0 2.288.19 3.313.544m3.387 2.556C20.419 9.163 22 11.292 22 12c0 .708-1.58 2.837-3.3 4.1M3 3l18 18" />
     </svg>
   );
 }
